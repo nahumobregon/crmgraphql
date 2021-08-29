@@ -5,7 +5,7 @@ const ProductoSchema = mongoose.Schema({
 		type: String,
 		required: false,
 		trim: true,
-		unique: true,
+		default: 'codigo000',
 	},
 	nombre: {
 		type: String,
