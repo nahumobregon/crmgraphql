@@ -1,0 +1,416 @@
+
+Para dar de alta un usuario desde studio.apollographql
+******************************************************
+Operations  
+
+    mutation nuevoUsuario($input: UsuarioInput) {
+    nuevoUsuario(input : $input){
+      id
+      nombre
+      apellido
+      email
+      nivel
+      status     
+    }
+
+Variables
+
+{
+  "input" : {
+    "nombre":"Nahum",
+    "apellido":"Obregon",
+    "email":"nahumobregon@gmail.com",
+    "password":"123456"
+  }
+}
+
+******************************************************
+
+Para generar un Token desde  studio.apollographql
+******************************************************
+Operations  
+
+    mutation autenticarUsuario($input: AutenticarInput){
+    autenticarUsuario(input:$input) {
+        token
+    }
+    }
+
+Variables
+    {
+    "input":{ "email":"jennifer@gmail.com",
+        "password":"123456"
+        }
+    }
+
+Para obtener el id del usuario desde  studio.apollographql
+******************************************************
+Operations  
+
+query obtenerUsuario($token:String!){
+  obtenerUsuario(token:$token){
+    id
+  }
+}
+
+Variables
+{
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTg1YWQ3MTA2ZDk3NTRiOGYzMzljZiIsImVtYWlsIjoibmFodW1vYnJlZ29uQGdtYWlsLmNvbSIsIm5vbWJyZSI6Ik5haHVtIiwiYXBlbGxpZG8iOiJPYnJlZ29uIiwic3RhdHVzIjoiQWN0aXZvIiwiaWF0IjoxNjI5MDAxNDM4LCJleHAiOjE2MjkwODc4Mzh9.46PX0U18WAgQrsCUIA_4bkGlCxCs-O8YVbYEiI-NyQ0"
+}
+
+
+Para obtener los datos del usuario desde  studio.apollographql
+******************************************************
+
+Operations
+
+    query obtenerDatosUsuario($token:String!){
+    obtenerDatosUsuario(token:$token){
+        id
+        nombre
+        apellidos
+        email
+        status
+        nivel
+    }
+    }
+
+    Variables
+    {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTg1YWQ3MTA2ZDk3NTRiOGYzMzljZiIsImVtYWlsIjoibmFodW1vYnJlZ29uQGdtYWlsLmNvbSIsIm5vbWJyZSI6Ik5haHVtIiwiYXBlbGxpZG8iOiJPYnJlZ29uIiwic3RhdHVzIjoiQWN0aXZvIiwiaWF0IjoxNjI5MDAxNDM4LCJleHAiOjE2MjkwODc4Mzh9.46PX0U18WAgQrsCUIA_4bkGlCxCs-O8YVbYEiI-NyQ0"
+    }
+
+Para dar de alta un PRODUCTO desde studio.apollographql
+******************************************************
+Operations  
+
+    mutation nuevoProducto($input: ProductoInput){
+        nuevoProducto(input:$input) {
+            id
+            codigo
+            nombre
+            existencia
+            precio
+            creado
+            status 
+        }
+    } 
+
+Variables
+
+{
+    "input" : {
+        "codigo":"COSTILLA",
+        "nombre":"COSTILLA CARGADA",
+        "existencia":1300,
+        "precio":110.00
+    }
+}
+
+Para obtener lista de PRODUCTOs desde studio.apollographql
+******************************************************
+Operations
+
+    query obtenerProductos {
+        obtenerProductos {
+            id
+            codigo
+            nombre
+            existencia
+            precio
+            status
+        }
+    }
+
+Para obtener un PRODUCTO por su id desde studio.apollographql
+******************************************************
+Operations
+    query obtenerProducto($id:ID!) {
+        obtenerProducto(id:$id) {
+            codigo
+            nombre
+            existencia
+        }
+    }
+
+    {
+    "id" : "6118b4c4bbe5e63164295235"
+    }
+
+Para Actualizar un PRODUCTO  desde studio.apollographql
+******************************************************
+Operations
+
+    mutation actualizarProducto($id: ID!, $input: ProductoInput){
+    actualizarProducto(id: $id, input: $input){
+        id
+        codigo
+        nombre
+        existencia
+        precio
+        status
+    }
+    }
+
+Variables
+
+    {
+    "id":"6118b4c4bbe5e63164295235",
+    "input":{
+        "codigo":"SIRLOIN",
+        "nombre":"Top Sirloin Angus",
+        "precio": 122,
+        "existencia": 2600
+    }
+    }
+
+Para Eliminar un PRODUCTO  desde studio.apollographql
+******************************************************
+Operations
+
+    mutation eliminar($id: ID!){
+    eliminarProducto(id: $id)
+    }
+
+Variables 
+
+    {
+    "id":"6118c13ebbe5e6316429523d"
+    }
+
+Para Agregar un CLIENTE  desde studio.apollographql
+******************************************************
+Operations
+
+    mutation nuevoCliente($input: ClienteInput){
+    nuevoCliente(input: $input){
+        nombre
+        email
+        telefono
+        vendedor
+    }
+    }
+
+Variables
+
+    {
+    "input":{
+        "nombre":"Jose Jose",
+        "apellido":"Rdz Rdz",
+        "empresa":"Master Carnes",
+        "email":"mastercarnes@mastercarnes.com",
+        "telefono":"10234567"
+    }
+    }
+
+nota1: en el Resolver nuevoCliente , se agregó lo 
+siguiente, para pruebas:
+
+//asignar el vendedor
+nuevoCliente.vendedor = '61185ad7106d9754b8f339cf';
+
+nota2: lo anterior antes de agregar dentro del contexto
+los datos del vendedor, para poderlos extraer del token 
+
+token de prueba ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTg1YWQ3MTA2ZDk3NTRiOGYzMzljZiIsImVtYWlsIjoibmFodW1vYnJlZ29uQGdtYWlsLmNvbSIsIm5vbWJyZSI6Ik5haHVtIiwiYXBlbGxpZG8iOiJPYnJlZ29uIiwic3RhdHVzIjoiQWN0aXZvIiwibml2ZWwiOiJWZW50YXMiLCJpYXQiOjE2MjkwNjQxMzEsImV4cCI6MTYyOTE1MDUzMX0.bxI-cOAeLlh64A3uISvyUxJF8quTXrcuEBy36e_QCIo"
+
+
+Para lista de CLIENTEs  desde studio.apollographql
+******************************************************
+Operations
+
+query obtenerClientes {
+    obtenerClientes {
+    nombre
+    apellido
+    empresa
+    email
+    telefono
+    vendedor  }
+  
+  }
+
+
+Para lista de CLIENTEs por Vendedor desde studio.apollographql
+******************************************************
+Operations
+query obtenerClientesVendedor {
+    obtenerClientesVendedor {
+    nombre
+    apellido
+    empresa
+    email
+    telefono
+    vendedor  }
+  
+  }
+
+Headers
+    Authorization eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+
+Obtener CLIENTE validando el Vendedor que lo creó. Desde studio.apollographql
+******************************************************
+Operations
+
+    query obtenerCliente($id:ID!, ){
+    obtenerCliente(id: $id) {
+        nombre
+        apellido
+        empresa
+        email
+    }
+    }
+
+Variables (id del cliente a consultar)
+    {
+    "id": "61199290c94e474ff47d79d3"
+    }
+
+Headers
+    Authorization eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+Actualizar CLIENTE validando el Vendedor que lo creó. Desde studio.apollographql
+******************************************************
+Operations
+
+    mutation actualizarCliente($id: ID!,$input:ClienteInput) {
+    actualizarCliente(id: $id,input:$input) {
+        nombre
+        empresa
+        email
+    }
+    }
+
+Variables
+    {
+    "id": "61199290c94e474ff47d79d3",
+    "input":{
+        "nombre":"Nahum",
+        "apellido":"Obregon",
+        "empresa":"Nocsys SA de CV",
+        "email":"nahumobregon@gmail.com",
+        "telefono":"8115646767"
+    } 
+    }
+
+Headers
+    Authorization eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+
+Eliminar CLIENTE validando el Vendedor que lo creó. Desde studio.apollographql
+******************************************************
+Operations
+
+    mutation eliminarCliente($id: ID!){
+    eliminarCliente(id: $id)
+    }
+
+Variables
+    {
+    "id" : "61199290c94e474ff47d79d3"
+    }
+
+Headers
+    Authorization eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+
+
+Agregar Pedido validando Vendedor . Desde studio.apollographql
+******************************************************
+Operations
+    mutation NuevoPedido($input: PedidoInput) {
+        nuevoPedido(input: $input) {
+            id
+            pedido {
+            id
+            cantidad
+            }
+            total
+            cliente
+            vendedor
+            fecha
+            estado
+        }
+        }
+    
+Variables
+    {
+    "input": {
+        "pedido":[
+        {"id": "6118b4c4bbe5e63164295235","cantidad":200},
+        {"id": "6118b4c4bbe5e63164295235","cantidad":300}
+        ],
+        "total":1500,
+        "cliente":"611a083717a97e138461bb6d",
+        "estado":"PENDIENTE"
+    }
+    }
+
+Headers
+    Authorization "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTg1YWQ3MTA2ZDk3NTRiOGYzMzljZiIsImVtYWlsIjoibmFodW1vYnJlZ29uQGdtYWlsLmNvbSIsIm5vbWJyZSI6Ik5haHVtIiwiYXBlbGxpZG8iOiJPYnJlZ29uIiwic3RhdHVzIjoiQWN0aXZvIiwibml2ZWwiOiJWZW50YXMiLCJpYXQiOjE2MjkyMjA4NjcsImV4cCI6MTYyOTMwNzI2N30.wFBTPQ33LtpYGfCQxIegRwTDMTgWCZ-FW89ZhVF6SAs"
+
+
+Obtener Pedidos Vendedor . Desde studio.apollographql
+******************************************************
+Operations
+
+    query Query {
+    obtenerPedidos {
+        id
+        pedido {
+        id
+        cantidad 
+        }
+        cliente
+        vendedor
+        total
+        creado
+        estado
+    }
+    }
+
+Obtener Pedidos por Vendedor . Desde studio.apollographql
+******************************************************
+Operations
+
+    query Query {
+    obtenerPedidos {
+        id
+        pedido {
+        id
+        cantidad 
+        }
+        cliente
+        vendedor
+        total
+        creado
+        estado
+    }
+    }
+
+Headers
+    Authorization "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMTg1YWQ3MTA2ZDk3NTRiOGYzMzljZiIsImVtYWlsIjoibmFodW1vYnJlZ29uQGdtYWlsLmNvbSIsIm5vbWJyZSI6Ik5haHVtIiwiYXBlbGxpZG8iOiJPYnJlZ29uIiwic3RhdHVzIjoiQWN0aXZvIiwibml2ZWwiOiJWZW50YXMiLCJpYXQiOjE2MjkyMjA4NjcsImV4cCI6MTYyOTMwNzI2N30.wFBTPQ33LtpYGfCQxIegRwTDMTgWCZ-FW89ZhVF6SAs"
+
+                   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMWMyN2FkMGMxYWViNGIwNDJmYjJjZiIsImVtYWlsIjoiamVubmlmZXJAZ21haWwuY29tIiwibm9tYnJlIjoiSmVubmlmZXIiLCJhcGVsbGlkbyI6Ik1hcnRpbmV6Iiwic3RhdHVzIjoiQWN0aXZvIiwibml2ZWwiOiJWZW50YXMiLCJpYXQiOjE2Mjk0MzgzNTcsImV4cCI6MTYyOTUyNDc1N30.fJi6K1G_z2lRWrzmFjBVfzcOw4sg21tGfNLOlq_xLOw
+
+
+Buscar Producto . Desde studio.apollographql
+******************************************************
+Operations
+
+    query buscarProducto($texto : String!) {
+        buscarProducto(texto : $texto)
+        {
+        codigo
+        nombre
+        existencia 
+        precio 
+        creado
+        status   
+        }
+
+    }
+
+    {
+    "texto":"costilla"
+    }
