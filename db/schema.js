@@ -102,10 +102,10 @@ const typeDefs = gql`
 
 	enum EstadoPedido {
 		PENDIENTE
-		COMPLETADO
-		CANCELADO
+		AUTORIZADO
 		FACTURADO
 		COBRADO
+		COMPLETADO
 	}
 
 	input PedidoInput {

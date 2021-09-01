@@ -1,0 +1,19 @@
+https://jsfiddle.net/rockyintel/1sqm7dpf/
+
+
+let
+    Source = Web.Contents(
+	"https://nocsys-crmgraphql.herokuapp.com/graphqll",
+	[
+		Headers=[
+			#"Method"="POST",
+            #"Content-Type"="application/json"
+		],
+		Content=Text.ToBinary("{""query"": ""query Query { mejoresVendedores { total vendedor { nombre apellido } }}""}")
+	]
+    ),
+    #"JSON" = Json.Document(Source)
+in
+    #"JSON"
+
+= Table.ExpandRecordColumn(#"Convertida en tabla1", "Column1", {"nombre"}, {"Column1.nombre"})

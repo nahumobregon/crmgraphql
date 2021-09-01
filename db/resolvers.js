@@ -158,7 +158,7 @@ const resolvers = {
 		},
 		mejoresVendedores: async () => {
 			const vendedores = await Pedido.aggregate([
-				{ $match: { estado: 'COMPLETADO' } },
+				{ $match: { estado: 'AUTORIZADO' } },
 				{
 					$group: {
 						_id: '$vendedor',
